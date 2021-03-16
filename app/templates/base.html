@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <title>URL Shortener</title>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="{{ url_for('index') }}">
+          <img src="{{ url_for('static', filename='logo.png') }}" width="30" height="30" class="d-inline-block align-top rounded" alt="logo" />
+          URL Shortener
+        </a>
+        {% if session %}
+            <div class="nav-item nav-link">
+                <a style="color:black;" href="{{ url_for('logout') }}">
+                    Logout
+                </a>
+                <img src="{{ session.picture }}" width="30" height="30" class="d-inline-block align-top rounded-circle" alt="profile" />
+            </div>
+        {% endif %}
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories=true)%}
+    {% if messages%}
+    {%for category, message in messages%}
+    <div class='alert alert-{{ category }}'>
+        {{message}}
+    </div>
+    {%endfor%}
+    {% endif %}
+    {% endwith %}
+    
+    {% block body %}{% endblock %}
+</body>
+</html>

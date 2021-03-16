@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <style>
+        a {
+            text-decoration: none;
+        }
+
+        .google-logo {
+            height: 1rem;
+            width: 1rem;
+        }
+
+        .link-block {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+    
+    <div class="link-block">
+        <a href="{{ url_for('login_google') }}" class="btn btn-outline-primary">
+            <img class="google-logo" src="{{ url_for('static', filename='google.png') }}" />
+            Log in with Google
+        </a>
+    </div>
+{% endblock %}
