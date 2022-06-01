@@ -14,7 +14,7 @@
           <img src="{{ url_for('static', filename='logo.png') }}" width="30" height="30" class="d-inline-block align-top rounded" alt="logo" />
           URL Shortener
         </a>
-        {% if session %}
+        {% if session.email %}
             <div class="nav-item nav-link">
                 <a style="color:black;" href="{{ url_for('logout') }}">
                     Logout

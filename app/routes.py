@@ -1,15 +1,17 @@
 from flask import (
-    render_template, redirect, url_for, 
-    request, jsonify, abort, flash, session
+    render_template, redirect, url_for,
+    request, abort, flash, session
 )
 import secrets
 from functools import wraps
 
-from app import app, db, oauth, google
+from app import app, db, oauth
 from app.models import URL
+
 
 with open('./restricted_urls', 'r') as f:
     restricted_urls = f.read().split('\n')
+
 
 def login_required(f):
     @wraps(f)
@@ -20,6 +22,7 @@ def login_required(f):
             return redirect(url_for('login'))
     return wrap
 
+
 def logout_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):
@@ -29,10 +32,12 @@ def logout_required(f):
             return redirect(url_for('index'))
     return wrap
 
+
 @app.route('/login')
 @logout_required
 def login():
     return render_template('login.html')
+
 
 @app.route('/login/google')
 @logout_required
@@ -40,6 +45,7 @@ def login_google():
     google = oauth.create_client('google')
     redirect_uri = url_for('authorize', _external=True)
     return google.authorize_redirect(redirect_uri)
+
 
 @app.route('/authorize')
 @logout_required
@@ -53,17 +59,20 @@ def authorize():
     session['picture'] = user_info['picture']
     return redirect(url_for('index'))
 
+
 @app.route('/logout')
 @login_required
 def logout():
     session.clear()
     return redirect(url_for('index'))
 
+
 @app.route('/')
 @login_required
 def index():
     url_list = URL.query.filter_by(user=session.get('email'))
     return render_template('index.html', url_list=url_list, session=session)
+
 
 @app.route('/shorten/url', methods=['POST'])
 @login_required
@@ -82,6 +91,7 @@ def shorten_url():
     flash('URL successfully shortened!', 'success')
     return redirect(url_for('index'))
 
+
 @app.route('/<string:short_url>')
 def get_url(short_url):
     existing_url = URL.query.filter_by(short=short_url).first()
@@ -93,6 +103,7 @@ def get_url(short_url):
     else:
         abort (404)
 
+
 @app.route('/delete/<int:url_id>')
 @login_required
 def delete_url(url_id):
@@ -103,6 +114,7 @@ def delete_url(url_id):
     else:
         flash('You are not authorized to peform that action!', 'danger')
     return redirect(url_for('index'))
+
 
 @app.errorhandler(404)
 def error_handler(err):
