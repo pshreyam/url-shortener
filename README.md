@@ -1,6 +1,6 @@
 # URL Shortener
 
-The purpose of URL shorteners is to shorten certain urls in order to make it easier for the users. Typically url shortener services are deployed using shorter domain names.
+The purpose of URL shorteners is to shorten certain URLs in order to make it easier for the users. Typically URL shortener services are deployed using shorter domain names.
 
 ## Requirements and Dependencies
 
