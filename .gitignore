@@ -4,3 +4,4 @@ __pycache__/
 .env
 .flaskenv
 urls.db
+.python-version
