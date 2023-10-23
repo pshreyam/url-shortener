@@ -1,51 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-        crossorigin="anonymous">
-  <script src="https://kit.fontawesome.com/e327786071.js" crossorigin="anonymous"></script>
-  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
-  <title>URL Shortener</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://kit.fontawesome.com/e327786071.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{{ url_for('static', filename='favicon.ico') }}"
+    />
+    <title>URL Shortener</title>
+  </head>
+  <body>
     <nav class="navbar navbar-dark bg-dark">
-        {% if not session.email %}
-          <a class="navbar-brand m-auto" href="{{ url_for('index') }}">
-            <img src="{{ url_for('static', filename='logo.png') }}"
-            width="30" height="30" class="d-inline-block align-top rounded"
-            alt="logo" />
-            URL Shortener
-          </a>
-        {% else %}
-          <span class="d-flex align-items-center justify-content-start">
-            <img src="{{ session.picture }}" width="30" height="30" class="rounded-circle" alt="profile" />
-            <span class="text text-light mx-2">Welcome, {{ session.name }}!</span>
-          </span>
-        {% endif %}
-
-        {% if session.email %}
-          <div class="nav-item nav-link d-flex ml-auto">
-            <a class="text-light px-2" href="{{ url_for('logout') }}">
-              <i class="fas fa-sign-out-alt"></i>
-            </a>
-          </div>
-        {% endif %}
+      {% if not session.email %}
+      <a class="navbar-brand m-auto" href="{{ url_for('index') }}">
+        <img
+          src="{{ url_for('static', filename='logo.png') }}"
+          width="30"
+          height="30"
+          class="d-inline-block align-top rounded"
+          alt="logo"
+        />
+        URL Shortener
+      </a>
+      {% else %}
+      <span class="d-flex align-items-center justify-content-start">
+        <img
+          src="{{ session.picture }}"
+          width="30"
+          height="30"
+          class="rounded-circle"
+          alt="profile"
+        />
+        <span class="text text-light mx-2">Welcome, {{ session.name }}!</span>
+      </span>
+      {% endif %} {% if session.email %}
+      <div class="nav-item nav-link d-flex ml-auto">
+        <a class="text-light px-2" href="{{ url_for('logout') }}">
+          <i class="fas fa-sign-out-alt"></i>
+        </a>
+      </div>
+      {% endif %}
     </nav>
 
-    {% with messages = get_flashed_messages(with_categories=true)%}
-    {% if messages%}
-    {%for category, message in messages%}
-    <div class='alert alert-{{ category }}'>
-        {{message}}
-    </div>
-    {%endfor%}
-    {% endif %}
-    {% endwith %}
-    {% block body %}{% endblock %}
-</body>
+    {% with messages = get_flashed_messages(with_categories=true)%} {% if
+    messages%} {%for category, message in messages%}
+    <div class="alert alert-{{ category }}">{{message}}</div>
+    {%endfor%} {% endif %} {% endwith %} {% block body %}{% endblock %}
+  </body>
 </html>

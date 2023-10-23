@@ -1,18 +1,14 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block body %}
+<style>
+  .error-block {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 36px;
+    word-wrap: unset;
+  }
+</style>
 
-{% block body %}
-    <style>
-        .error-block {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 36px;
-            word-wrap: unset;
-        }
-    </style>
-    
-    <div class="error-block">
-        404! No Page Found!
-    </div>
+<div class="error-block">404! No Page Found!</div>
 {% endblock %}
