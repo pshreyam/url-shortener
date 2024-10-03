@@ -30,12 +30,12 @@
       <tbody>
         {% if url_list %} {% for url in url_list %}
         <tr>
-          <td>{{url.id}}</td>
+          <td>{{loop.index}}</td>
           <td>
             <a href="{{url.full}}" target="_blank"> {{url.full}} </a>
           </td>
           <td>
-            <a href="/{{url.short}}" target="_blank"> {{url.short}} </a>
+            <a href="/{{url.id}}" target="_blank"> {{url.id}} </a>
           </td>
           <td>{{url.clicks}}</td>
           <td>
