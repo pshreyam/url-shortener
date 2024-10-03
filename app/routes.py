@@ -1,35 +1,13 @@
 import secrets
-from functools import wraps
 
 from flask import abort, flash, redirect, render_template, request, session, url_for
 
 from app import app, db, oauth
+from app.decorators import login_required, logout_required
 from app.models import URL
 
 with open("./restricted_urls", "r") as f:
     restricted_urls = f.read().split("\n")
-
-
-def login_required(f):
-    @wraps(f)
-    def wrap(*args, **kwargs):
-        if "email" in session.keys():
-            return f(*args, **kwargs)
-        else:
-            return redirect(url_for("login"))
-
-    return wrap
-
-
-def logout_required(f):
-    @wraps(f)
-    def wrap(*args, **kwargs):
-        if "email" not in session.keys():
-            return f(*args, **kwargs)
-        else:
-            return redirect(url_for("index"))
-
-    return wrap
 
 
 @app.route("/login")
